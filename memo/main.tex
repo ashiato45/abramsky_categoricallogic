@@ -1,0 +1,524 @@
+\documentclass[9pt]{ltjsarticle}
+\DeclareSymbolFont{bbold}{U}{bbold}{m}{n}
+\DeclareSymbolFontAlphabet{\mathbbold}{bbold}
+\newcommand{\bbold}{\mathbbold}
+\usepackage{xcolor}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{enumitem}
+\usepackage{ashiato45}
+%\usepackage{okumacro}
+\def\MARU#1{\textcircled{\scriptsize #1}}
+\usepackage{graphicx}
+\usepackage{ulem}
+\usepackage{framed}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{here}
+%\usepackage[twoside]{geometry}
+\usepackage{mytheorems}
+\usepackage{tikz}
+\usepackage{ascmac}
+\usetikzlibrary{cd}
+\title{Abramsky- Categorical Logic}
+\author{ashiato45 take notes}
+
+\renewcommand{\bf}{\mathbf}
+
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+\label{sec:Introduction}
+\subsection{From Elements To Arrows}
+\label{sub:From Elements To Arrows}
+\subsection{Categories Defined}
+\label{sub:Categories Defined}
+\subsection{Diagrams in Categories}
+\label{sub:Diagrams in Categories}
+\subsection{First Notions}
+\label{sub:First Notions}
+\begin{itemize}
+  \item (Definition 15: subcategory):
+  $\C$を圏とし、
+  \begin{align}
+    \obj(\D)\subset \obj(\C),\quad
+    \Forall{A,B\in \obj(\cal D)} \cal D(A,B) \subset \cal C(A,B)
+  \end{align}
+  がるとする。$\D$が$\C$のsubcategoryであるとは、
+  \begin{itemize}
+    \item $A\in \obj(\D) \implies \id_A \in \cal D(A,A)$となる
+    \item $f\in \cal D(A,B),g\in \cal D(B,C)\implies g\circ f \in \cal D(A,C)$
+  \end{itemize}
+  となること。
+  \item (full,lluf):
+  subcategoryがfullであるとは、$A$から$B$への射が
+  もとのcategoryのものと一致すること。
+  llufであるとは、オブジェクトをすべて引き継いでいること。
+
+\end{itemize}
+
+\section{Some Basic Constructions}
+\label{sec:Some Basic Constructions}
+\subsection{Initial and Terminal Objects}
+\label{sub:Initial and Terminal Objects}
+\subsection{Products and Coproducts}
+\label{sub:Products and Coproducts}
+\subsubsection{Products}
+\label{subs:Products}
+\subsection{Coproducts}
+\label{sub:Coproducts}
+\subsection{Pullbacks and Equalisers}
+\label{sub:Pullbacks and Equalisers}
+\subsubsection{Pullbacks}
+\label{subs:Pullbacks}
+\begin{itemize}
+  \item
+  $A\xrightarrow{f} C \xleftarrow{g}B$について、
+  $f,g$に沿ったpullbackとは、$A\xleftarrow{p}D \xrightarrow{q} B$で、
+  \begin{quote}
+    \begin{tikzcd}
+      D' \ar[rd,dotted,"h"] \ar[rrd,"q'"] \ar[rdd,"p'"]& & \\
+      & D \ar[r,"q"] \ar[d,"p"] & B \ar[d,"g"]\\
+      & A\ar[r,"f"] & C
+    \end{tikzcd}
+  \end{quote}
+  という普遍性を持つもの。
+  \item
+  ($(f,g)$-cone):
+  $A\xrightarrow{f}C\xleftarrow{g} B$について、$(f,g)$-oneとは
+  $(D,p,q)$で
+  \begin{tikzcd}
+    D\ar[r,"q"] \ar[d,"p"] & B \ar[d,"g"]\\
+    A \ar[r,"f"] & C
+  \end{tikzcd}
+  となるもの。
+  \item
+  ($(f,g)$-coneのmorphism):
+  $A \xrightarrow{f} C \xleftarrow{g}B $についてこのconeたちを考える。
+  $(f,g)$-coneである、$(D_1,p_1,q_1),(D_2,p_2,q_2)$について、
+  この間のmorphismとは、
+  \begin{tikzcd}
+    & D_1 \ar[ld,"p_1"] \ar[dd,"h"] \ar[dr,"q_1"]& \\
+    A & & B\\
+    & D_2 \ar[ul,"p_2"] \ar[ur,"q_2"]&
+  \end{tikzcd}
+  となるもの。
+\end{itemize}
+\subsubsection{Equalisers}
+\label{subs:Equalisers}
+\begin{itemize}
+  \item (Definition 28: equaliser):
+  \begin{tikzcd}
+    A  \ar[r,bend left,"f"] \ar[r,bend right,"g"]& B
+  \end{tikzcd}
+  を考える。
+  $(f,g)$のequaliserとは、
+  \begin{itemize}
+    \item arrow$e\colon E\to A$で、
+    \item $f\circ e = g\circ e$をみたし、
+    \item
+    \begin{tikzcd}
+      E\ar[r,"e"] & A \ar[r,bend left,"f"] \ar[r,bend right, "g"] & B\\
+      D \ar[u,dotted,"\hat h"] \ar[ru,"h"] & &
+    \end{tikzcd}
+    という普遍性を持つもの。
+  \end{itemize}
+  \item
+  たとえば、$f\colon (x,y)\mapsto x^2 + y^2$、$g\colon (x,y)\mapsto 1$
+  について、単位円からの$\R^2$への埋め込みはequaliserになっている。
+\end{itemize}
+\subsection{Limits and Colimits}
+\label{sub:Limits and Colimits}
+
+\section{Functors}
+\label{sec:Functors}
+\subsection{Basics}
+\label{sub:Basics}
+\subsection{Further Examples}
+\label{sub:Further Examples}
+\begin{itemize}
+  \item posetの例:
+  poset\footnote{反射対称推移}$P$が時間をあらわすとき、
+  $F\colon P \to \bf{Set}$は集合の時間変化をあらわす。
+  \item
+  $\bf{List}$はfunctorになる。
+  つまり、$f\colon X \to Y$を
+  $\bf{List}(X)\to \bf{List}(Y)$にうつす:
+  \horrel{$f\colon X\to Y$}{$\bf{List}(f)\colon \bf{list}(X)\to \bf{list}(Y)$}。
+  \item
+  さらに構造を持たせることもできる。
+  Listをmonoidとみなせば、
+  $\bf{MList}\colon \bf{Set}\to \bf{Mon}$を上と
+  同様に定義すればよい。Listは単位元を空リストとし、
+  積を連結とすればmonoidになっている。
+  \item (free monoid):
+  $\bf{MList}(X)$を$X$上のfree monoidという。
+\end{itemize}
+
+
+\subsection{Contravariance}
+\label{sub:Contravariance}
+
+\subsection{Properties of Functors}
+\label{sub:Properties of Functors}
+\begin{itemize}
+  \item (Definition 48: faithful):
+  functorの、arrowをうつす部分が単射。
+  \item (full):
+  functorの、arrowをうつす部分が全射。
+  \item (embedding):
+  functorがfullでfaithfulで「objectに関して単射」である。
+  \item (essentially surjective):
+  \begin{align}
+    \Forall{B\in \obj(\cal D)} \Exists{A\in \obj(\cal C)} F(A) \simeq B
+  \end{align}
+  つまり、「『objectについての全射』を同型で弱めた」もの。
+  \item (equivalence):
+  functorがfullでfaithfulでessentailly surjectiveっであること。
+  \item (isomorphism):
+  合成して1。
+  \item (preservation)
+  $P$をarrowの性質とする
+  \footnote{monicとかepiとか}。
+  $F\colon \cal C\to \cal D$が$P$をpreserveするとは、
+  $f$が$P$をみたすとき$F(f)$も$P$をみたすこと。
+  \item (reflect):
+  $F(f)$が$P$をみたすとき$f$も$P$をみたすこと。
+\end{itemize}
+
+\section{Natural Tansformations}
+\label{sec:Natural Tansformations}
+\subsection{Basics}
+\label{sub:Basics}
+
+\begin{itemize}
+  \item (natural isomorphism):
+  自然変換$t\colon F\to G$について、
+  \begin{align}
+    \Forall{A\in \obj(\cal C)} t_A は\text{isomorphism}
+  \end{align}
+  となるとき、$t$をnatural isomorphismという。
+  \item
+  Functor$\id$と、Functor$\times \circ \gen{\id,\id}$
+  (これは$f\mapsto \gen{f,f}$と定義される)の間の
+  $\Delta \colon \id \to \times \circ \gen{\id,\id}$
+  を$X\in \bf{Set}$について、
+  \begin{align}
+    \Delta_X \colon x\to X\times X ,\quad x\mapsto (x,x)
+  \end{align}
+  と定義し、これを
+  考える。これは、
+  \begin{tikzcd}
+    X\ar[r,"f"] & Y\\
+    X\ar[r,"f"] \ar[d,"\Delta_X"] & Y \ar[d,"\Delta_Y"]\\
+    X\times X \ar[r,"f\times f"]& Y \times Y
+  \end{tikzcd}
+  をcommuteさせるので、自然変換になっている。
+  \item
+  binary productsがある圏$\C$について、
+  上と同様にfunctor$\id$からfunctor$\id \times \id$
+  への自然変換$\Delta_A$が定義できる。
+  \item
+  binary productsがある圏$\C$について、
+  functor $\times\colon \C\times \C \to \C$をproduct categoryからとってその2つのbinary productsをとるものとし、
+  functor $\pi_1\colon \C\times \C \to \C$をproduct categoryをとってその片方をとるものとする。
+  このとき、この2つのfunctorの間のtransformation $\pi_1$
+  を、各$(A,B)\in \obj(\cal C\times \cal C)$について、
+  \begin{align}
+    (\pi_1)_{(A,B)}\colon
+    (A,B) \mapsto A
+  \end{align}
+  と定義すると、これはnatural transformationになる。
+  \item
+  $\C$をterminal $T$をもつ圏とし、
+  functor $K_T\colon \cal C\to \cal C$を
+  、すべてのobjectを$T$にうつし、すべての射を$\id_T$にうつすものとする。
+  すると、$\id$から$K_T$へのtransformation を
+  \begin{align}
+    \tau_A \colon c\mapsto (\id c\to K_T c) = (c\to T)
+  \end{align}
+  を、$T$がterminalであることから$c\to T$が1つに定まる
+  ことを使って定義する。すると、
+  あきらかに
+  \begin{tikzcd}
+    c \ar[d,"f"] & \id c = c \ar[d,"\id f = f"] \ar[r,"\tau c"] & K_T c = T \ar[d,"K f = \id_T"]\\
+    c' & \id c' = c' \ar[r,"\tau c'"] & K_T c' =T
+  \end{tikzcd}
+  の図示が満たされるので(重ね重ねterminalの性質に注意)、
+  $\tau$はnatural transformationになっている。
+  \item
+  $\bf{List}$間のtransformation
+  $\bf{List}X \xrightarrow{\bf{reverse}_X} \bf{List}X$
+  をリストの逆転と定義すると、これは
+  \begin{tikzcd}
+    X \ar[d,"f"] & \bf{List}X \ar[d,"\bf{List}f"] \ar[r,"\bf{reverse}_X"] & \bf{List}X \ar[d,"\bf{List}f"]\\
+    X' & \bf{List}X' \ar[r,"\bf{reverse}_{X'}"] & \bf{List}X'
+  \end{tikzcd}
+  をあきらかに満たし、natural。
+  \item
+  $\id$から$\bf{List}$へのtransformation
+  $\id X \xrightarrow{\bf{unit}_X} \bf{List} X$を
+  1要素リストの生成と定義すると、これはあきらかにnatural。
+  \item
+  $\bf{List}(\bf{List}(X))$から$\bf{List}(X)$への
+  transformationをリストをつぶすことと定義すると、
+  $\bf{List}$のネストで矢がどこへ飛ぶかを考えるとnatural。
+  \item
+  functor $P\colon \bf{Mon}\to \bf{Set}$を
+  、monoidを忘れつつ対角線に埋め込む
+  $(M,\cdot,1)\mapsto M\times M,\, f\mapsto f\times f$
+  と定義する。さらに、$U$を単にforgetするfunctorとする。
+  このとき、$P$から$U$へのtransformation$t_{(M,\bullet,1)}$を
+  もとのモノイドでの積を取るとすると、
+  \begin{tikzcd}
+    (M,\bullet,1) \ar[d,"f"] & M\times M \ar[d,"f\times f"] \ar[r,"t_{(M,\bullet,1)}"] & M \ar[d,"f"]\\
+    (N,\bullet,1) & N\times N  \ar[r,"t_{(N,\bullet,1)}"] & N
+  \end{tikzcd}
+  がcommuteし、natural。
+
+\end{itemize}
+
+\subsection{Further Examples}
+\label{sub:Further Examples}
+\begin{itemize}
+  \item
+  $\C$の射$f\colon A\to B$を考える。
+  このとき、$\hom_\C (B,?)$から$\hom_\C (A,?)$への
+  transformation $\hom_{\C}(f,?)\colon \hom_\C(B,C) \to \hom_\C(A,C)$
+  を、「コドメイン側に$f$を合成する」とすると、
+  \begin{tikzcd}
+    C \ar[d,"h"] & \hom_\C(B,C) \ar[d,"h\circ ?"] \ar[r,"?\circ f"] & \hom_\C(A,C) \ar[d,"h\circ ?"]\\
+    D & \hom_\C(B,D) \ar[r,"?\circ f"] & \hom_\C(A,D)
+  \end{tikzcd}
+  はあきらかにcommuteでnaturalになる。
+  \item (Lemma 1;Yoneda Lemma):
+  (どのHom-functor間のnatural transformationは矢の合成としてあらわせる)
+  $A,B\in \obj(\C)$とする。$t$を$\hom(A,?)$から$\hom(B,?)$への
+  natural transformationとする。
+  $t= (\circ f)$となる$f\colon B\to A$がただ1つ存在する。
+
+  \pf
+  $f=t_A(\id_A)$とすればよいことを示す。
+
+  $C\in \obj(\C)$をfixする。$t(C)=(\circ f)(C)$を示せばよい
+  (この型は$\hom(A,C)\to \hom(B,C)$になっている)。
+  関手$\hom(A,?),\hom(B,?)$は圏$\C$から$\bf{Set}$への
+  関手なので、射は関数になっている。したがって、
+  外延的に等価性を示せる。
+  $g\colon A\to C$を$\ar(\C)$からfixする。
+  $t(C)(g)=(\circ f)(C)(g)$を示せばよい。
+  $g$に$t$のnaturalityを使うと、
+  \begin{tikzcd}
+    A \ar[d,"g"] & \hom(A,A) \ar[d,"g\circ"]\ar[r,"t_A"] & \hom(B,A) \ar[d,"g\circ"]\\
+    C & \hom(A,C) \ar[r,"t_C"] & \hom(B,C)
+  \end{tikzcd}
+  を得る。
+  \begin{align}
+    t_C(g) = t_C((g\circ ?)(\id_A))
+    \desceq{comm}
+    (g\circ ?)t_A(\id_A)
+    \desceq{$f$の定義}
+    (g\circ ?)f
+    =
+    g\circ f
+    =
+    (\circ f)g
+    .
+  \end{align}
+  $g$のfixを外し、$t_C = (\circ f)=(\circ f)(C)$となる。
+  よって、$t = (\circ f)$となる。示された。
+  \item
+  (Definition 57; equivalent)
+  圏$\C,\D$がequivalentっであるとは、
+  関手$F\colon \C\to \D,G\colon \D \to \C$があり、
+  $G\circ F \simeq \id_{\C},\, F\circ G \simeq \id_{\D}$となる。
+\end{itemize}
+
+\subsection{Functor Categories}
+\label{sub:Functor Categories}
+
+\section{Universality and Adjoints}
+\label{sec:Universality and Adjoints}
+\subsection{Adjunctions for Posets}
+\label{sub:Adjunctions for Posets}
+\begin{itemize}
+  \item ($g$-approximation of $x$):
+  $x\in P$とする。
+  $P,Q$をPosetの圏のobject(つまりposet)とする。
+  $g\colon Q\to P$をposet準同型とする。
+  $x\le g(y)$となる$y\in Q$を$x$の
+  $g$-approximationという。
+  \item (best $g$-approximation of $x$):
+  $y\in Q$で
+  \begin{align}
+    x\le g(y) \land (x\le g(z) \implies y\le z)
+  \end{align}
+  \item
+  $g$が全射であり、したがって
+  常に$g$-approximationがあるとしても
+  bestなものがあるとは限らない。これが
+  canonical choiceの問題になる。
+  \item (posetのleft adjoint):
+  もしも全ての$x\in P$について
+  そのbest $g$-approximationがあるなら、
+  それでもって$f\colon P\to Q$を定義できる。
+  この$f$を$g$のleft adjointという。
+  このとき、
+  \begin{align}
+    x\le g(z)\iff f(x)\le z
+  \end{align}
+  となっている。
+  \item (binary relationのleft adjoint):
+  二項関係の圏をかんがえる。$R\subset X\times Y$とする。
+  \begin{align}
+    f_R\colon \cal P(X)\to \cal P(Y),\quad
+    S\mapsto \bigcup_{x\in S, xRy}y
+  \end{align}
+  $f_R$はright adjoint $[R]\colon \cal P(Y)\to \cal P(X)$
+  は$S,T\subset \cal P(Y)$としておいて、
+  \begin{align}
+    S\subset [R]T \iff f_R(S)\subset T
+  \end{align}
+  をみたしてほしいが、これは
+  \begin{align}
+    [R]T
+    \defeq
+    \set{x\in X; xRy \implies y\in T}
+  \end{align}
+  である。
+  \item (powersetのleft adjoint):
+  $f\inv \colon \cal P(Y)\to \cal (X)$を考えることができるが、
+  left adjoint$\exists(f)\colon \cal P(X)\to \cal P(Y)$
+  とright adjoint$\forall(f)\colon \cal P(X)\to \cal P(Y)$
+  、すなわち$S\subset X,T\subset Y$について、
+  \begin{align}
+    \exists(f)(S) \subset T
+    \iff
+    S\subset f\inv (T),\quad
+    f\inv(T)\subset S
+    \iff
+    T\subset \forall(f)(S).
+  \end{align}
+  これは、$\exists(f)$を$S$の像とし、
+  $\forall(f)(S)$を「$y$に行く$x$は全部$S$上」となるような$y$たちとする。
+  つまり、$x\in S$から$f$で飛ばした先の点$f(x)$が、$S$の外から来てはいけない。
+\end{itemize}
+
+\subsection{Universal Arrows and Adjoints}
+\label{sub:Universal Arrows and Adjoints}
+\begin{itemize}
+  \item (Definition 64:universal arrow)
+  $G\colon \D \to \C$をfunctorとする。
+  $C\in \obj(\C)$から$G$へのuniversal arrowとは、
+  $(D \in \obj(\D),\eta \in \hom_\C(C,G(D))$の組で、
+  \begin{quote}
+    $\Forall{D' \in \obj(\D)}\Forall{f\colon C\to G(D')}$
+    \begin{tikzcd}
+      C \ar[r,"\eta"] \ar[rd,"f"] & G(D) \ar[d,dotted,"G(\hat f)"] & D \ar[d,"\hat f",dotted] \\
+      & G(D') & D'
+    \end{tikzcd}
+  \end{quote}
+  をみたすもの。
+
+  一意性の条件は式で
+  \begin{align}
+    \Forall{h\colon D\to D'} \hat{G(D\circ \eta)} = h
+  \end{align}
+  ともあらわせる。
+  \pf
+  $h\colon D\to D'$で、$f=G(D)\circ \eta$なら$\hat f=h$であることを示せばよいが、
+  ハットのなかを置き換えて、これは$\hat{G(D)\circ \eta}=h$である。
+
+  \item
+  $U$をmonoidから集合へのforgetする関手とする。
+  このとき、$X$から$U$へのuniversal arrowとして、
+  $(\bf{MList}(X),\eta_X)$がとれる。ただし、$\eta_X\colon X\to U(\bf{MList}(X))$
+  は1要素リストの生成。
+  \pf
+  任意の集合圏での関数$f\colon X\to M$について
+  \begin{align}
+    \hat f\colon
+    \bf{MList}(X) \to (M,\bullet, 1)
+    ,\quad
+    [x_1,\dots,x_n] \mapsto f(x_1)\dots f(x_n)
+  \end{align}
+  が存在して、これが
+  \begin{tikzcd}
+    {\bf{Set}の話} & & {\bf{Mon}の話}\\
+    X\ar[r,"\eta_X"] \ar[rd,"f"] & {U(\bf{MList}(X))} \ar[d,dotted,"U(\hat f)"] &  \bf{MList}(X) \ar[d,dotted,"\hat f"]\\
+    & M & (M,\bullet,1)
+  \end{tikzcd}
+  の条件をみたす。実際、
+  \begin{align}
+    (U(\hat f)\circ \eta_X)(x) = U(\hat f)([x]) = f(x)
+  \end{align}
+  である。一意性は、上の条件より
+  $\hat{U(h)\circ \eta_X}=h$を示せばよい。
+  \begin{align}
+    \hat{U(h)\circ \eta_X}([x_1,\dots,x_n])
+    &=
+    (U(h)\circ \eta_X)(x_1)\cdot \dots \cdot (U(h)\circ \eta_X)(x_n)\\
+    &=
+    U(h)([x_1])\cdot \dots \cdot U(h)([x_n])\\
+    &=
+    h([x_1])\dots h([x_n])\\
+    &=
+    h([x_1,\dots,x_n]).
+  \end{align}
+  \item
+  (Definition 68:adjunction,adjoint)
+  $\C,\D$を圏とする。$\C$から$\D$へのadjunctionは
+  \begin{itemize}
+    \item $F$:$\C$から$\D$へのfunctor
+    \item $G$:$\D$から$\C$へのfunctor
+    \item $\theta$: $\C$のobject$A,B$で添字付けられたbijectionのfamily
+    \begin{align}
+      \theta_{A,B} \colon \C( A, G(B)) \xrightarrow{\simeq} \D(F(A),B)
+    \end{align}
+    で、$A$をrunしたとき自然になり、$B$をrunしたとき自然になるもの。
+    \item
+    $F$を$G$のleft adjointといい、$G$を$F$のright adjointという。
+  \end{itemize}
+  \item
+  上の2つの自然性について考えてみる。
+  まず、$A$を固定し$B$を走らせたときのnaturalityは
+  \begin{tikzcd}
+    B \ar[d,"h"] & \C (A,GB) \ar[d,"(Gh)\circ"] \ar[r,"\theta_{AB}"]&  \D(FA,B) \ar[d,"h\circ"]\\
+    B' & \C (A,GB') \ar[r,"\theta_{AB'}"] & \D (FA,B')
+  \end{tikzcd}
+  となる。
+  \item
+  一方、$B$を固定し$A$を走らせたときのnaturalityは
+  \begin{tikzcd}
+    A' \ar[d,"g"] & \C (A',GB) \ar[r,"\theta_{A'B}"]  & \D (FA',B)\\
+    A & \C (A,GB) \ar[u,"\circ g"] \ar[r,"\theta_{AB}"] & \D (FA,B) \ar[u,"\circ (Fg)"]
+  \end{tikzcd}
+  となる。
+  \item
+  上2つをくっつけると、
+  \begin{tikzcd}
+    A' \ar[d,"g"] & & \C(A',GB) \ar[r,"\theta_{A'B}"] & \D (FA',B) \\
+    A & B\ar[d,"h"] & \C (A,GB) \ar[u,"\circ g"] \ar[r,"\theta_{AB}"] \ar[d,"(Gh)\circ"] & \D (FA,B) \ar[u,"\circ (Fg)"] \ar[d,"h\circ"]\\
+    & B' & \C (A,GB') \ar[r]&\D (FA,B')
+  \end{tikzcd}
+  となる。これがnaturalityの意味になる。
+  さらに、$B$を固定し$A$を走らせたときの図式で
+  $B'$を固定した図式を考えくっつけると、
+  \begin{tikzcd}
+    B\ar[d,"h"] & & \C (A,GB) \ar[r,"\theta_{AB}"] \ar[d,"(Gh)\circ"] & \D (FA,B)\ar[d,"h\circ"]\\
+    B' & A & \C (A,GB') \ar[r,"\theta_{AB'}"] \ar[d,"\circ g"] & \D (FA,B') \ar[d,"\circ (Fg)"]\\
+    & A' \ar[u,"g"] & \C (A',GB') \ar[r,"\theta_{A'B'}"] & \D (FA',B')
+  \end{tikzcd}
+  を得る。
+
+  中間を引っこ抜くと、
+  \begin{tikzcd}
+    B \ar[d,"h"] & A & \C (A,GB) \ar[r,"\theta_{AB}"] \ar[d,"(Gh)\circ ? \circ g"] & \D (FA,B) \ar[d, "h\circ ? \circ (Fg)"]\\
+    B' & A' \ar[u,"g"] & \C (A',GB') \ar[r,"\theta_{A'B'}"] & \D (FA',B')
+  \end{tikzcd}
+  を得る。
+  これは$f,g$を$\id$にしたりすることで上の式をすべて包含する。
+\end{itemize}
+
+\end{document}
